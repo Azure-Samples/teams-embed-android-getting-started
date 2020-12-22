@@ -1,0 +1,2 @@
+-keep class com.microsoft.skype.teams.bottombar.** { *; }
+-keep class com.google.common.** { *; }
