@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         joinOptions.displayName = displayName;
-        MeetingSDK.initialize(communicationUserCredential, joinOptions);
+        MeetingSDK.initialize(communicationUserCredential);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         try {
-            MeetingSDK.joinMeetingWith(meetingUrl);
+            MeetingSDK.joinMeetingWith(meetingUrl, joinOptions);
         } catch (Exception e) {
             e.printStackTrace();
         }
