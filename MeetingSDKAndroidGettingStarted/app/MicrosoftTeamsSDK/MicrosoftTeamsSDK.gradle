@@ -28,6 +28,7 @@ android {
         pickFirst 'META-INF/kotlinx-io.kotlin_module'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/library_release.kotlin_module'
+        exclude 'META-INF/LICENSE.md'
     }
 
     buildTypes {
@@ -105,7 +106,6 @@ ext.versions = [
         'tokenautocomplete'       : '2.0.7',
         'workmanager'             : '2.1.0',
         'yearclass'               : '2.0.0',
-        'acsCommon'               : '1.0.0-beta.1'
 ]
 
 dependencies {
@@ -227,7 +227,4 @@ dependencies {
     implementation "com.airbnb.android:lottie:${versions.lottie}"
 
     api "com.splitwise:tokenautocomplete:${versions.tokenautocomplete}@aar"
-
-    // ACS
-    implementation "com.azure.android:azure-communication-common:${versions.acsCommon}"
 }
