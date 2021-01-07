@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.azure.android.communication.common.CommunicationUserCredential;
-import com.microsoft.teamssdk.app.TeamsSDKApplication;
-import com.microsoft.teamssdk.calling.MeetingSDK;
-import com.microsoft.teamssdk.calling.JoinOptions;
+import com.azure.android.communicaiton.MeetingSDK.MeetingSDK;
+import com.azure.android.communicaiton.MeetingSDK.JoinOptions;
+import com.microsoft.teamssdk.calling.MicrosoftTeamsSDK;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,18 +42,19 @@ public class MainActivity extends AppCompatActivity {
         joinOptions = new JoinOptions();
         joinOptions.displayName = displayName;
 
-//        MeetingSDK.initialize(communicationUserCredential);
+        MeetingSDK.initialize(communicationUserCredential);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-//        try {
-//            MeetingSDK.joinMeetingWith(meetingUrl, joinOptions);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            //MeetingSDK.joinMeetingWith(meetingUrl, joinOptions);
+            MicrosoftTeamsSDK.joinMeetingWith(meetingUrl, displayName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isRecordAudioPermissionGranted()

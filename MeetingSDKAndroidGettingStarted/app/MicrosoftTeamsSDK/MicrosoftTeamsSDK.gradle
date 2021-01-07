@@ -1,0 +1,230 @@
+/*
+ * Copyright © Microsoft Corporation. All rights reserved.
+ */
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        resConfigs "en"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    packagingOptions {
+        pickFirst '**/*.so'
+        pickFirst '**/*.jar'
+        pickFirst 'META-INF/kotlinx-io.kotlin_module'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/library_release.kotlin_module'
+        exclude 'META-INF/LICENSE.md'
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles 'MicrosoftTeamsSDK/proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles 'MicrosoftTeamsSDK/proguard-rules.pro'
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        maven { url 'https://pkgs.dev.azure.com/MicrosoftDeviceSDK/DuoSDK-Public/_packaging/Duo-SDK-Feed%40Local/maven/v1' }
+        flatDir {
+            dirs "MicrosoftTeamsSDK/"
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
+            exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+        }
+    }
+}
+
+ext.versions = [
+        'adal'                    : '1.16.3',
+        'androidMaterial'         : '1.2.1',
+        'androidX'                : '1.0.0',
+        'annotation'              : '1.0.0',
+        'appCompat'               : '1.1.0',
+        'bindingcollectionadapter': '3.2.0',
+        'bluetoothClassicLibrary' : '0.3.5',
+        'boltTasks'               : '1.4.0',
+        'butterKnife'             : '10.2.0',
+        'commonsIO'               : '2.4',
+        'connectionclass'         : '1.0.1',
+        'constraintLayout'        : '1.1.3',
+        'dagger'                  : '2.25.2',
+        'easyprefs'               : '1.9.0',
+        'firebase'                : '0.8.5',
+        'firebase_messaging'      : '20.1.0',
+        'flexbox'                 : '1.0.0',
+        'fresco'                  : '2.0.0',
+        'googlePlaces'            : '2.1.0',
+        'googlePlayServices'      : '17.0.0',
+        'gson'                    : '2.8.5',
+        'jacoco'                  : '0.7.9',
+        'jsoup'                   : '1.11.3',
+        'junit'                   : '4.12',
+        'kotlin'                  : '1.3.61',
+        'libphonenumber'          : '7.0.11',
+        'lifecycle'               : '2.0.0',
+        'lottie'                  : '3.3.1',
+        'msal'                    : '2.0.4',
+        'multidex'                : '2.0.0',
+        'nav_version'             : '2.3.0',
+        'okhttp'                  : '3.11.0',
+        'recyclerView'            : '1.0.0',
+        'retrofit'                : '2.3.0',
+        'stickyHeader'            : '0.6.1',
+        'tokenautocomplete'       : '2.0.7',
+        'workmanager'             : '2.1.0',
+        'yearclass'               : '2.0.0',
+]
+
+dependencies {
+    implementation fileTree(dir: 'MicrosoftTeamsSDK', include: ['*.jar'])
+
+    // Android libraries
+    implementation "androidx.annotation:annotation:${versions.annotation}"
+    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
+    implementation "androidx.cardview:cardview:${versions.androidX}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation "androidx.gridlayout:gridlayout:${versions.androidX}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+    implementation "androidx.work:work-runtime:${versions.workmanager}"
+    implementation "androidx.navigation:navigation-fragment:${versions.nav_version}"
+    implementation "com.android.support:multidex:${versions.multidex}"
+
+    // Google libraries
+    implementation "com.google.android.gms:play-services-base:${versions.googlePlayServices}"
+    implementation "com.google.android.gms:play-services-location:${versions.googlePlayServices}"
+    implementation "com.google.android.libraries.places:places:${versions.googlePlaces}"
+    implementation "com.google.android.material:material:${versions.androidMaterial}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "com.googlecode.libphonenumber:libphonenumber:${versions.libphonenumber}"
+    implementation "com.google.firebase:firebase-messaging:${versions.firebase_messaging}"
+    implementation "com.google.guava:guava:27.0.1-android"
+    implementation "com.google.android:flexbox:${versions.flexbox}"
+
+    // Dagger: dependency injection framework
+    implementation "com.google.dagger:dagger:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${versions.dagger}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${versions.dagger}"
+
+    // KOTLIN
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+
+    implementation  (name:'teamssdk_1', ext:'aar')
+    implementation  (name:'teamssdk_2', ext:'aar')
+    implementation  (name:'teamssdk_3', ext:'aar')
+    implementation  (name:'teamssdk_4', ext:'aar')
+    implementation  (name:'teamssdk_5', ext:'aar')
+    implementation  (name:'teamssdk_6', ext:'aar')
+    implementation  (name:'teamssdk_7', ext:'aar')
+    implementation  (name:'teamssdk_8', ext:'aar')
+    implementation  (name:'teamssdk_9', ext:'aar')
+    implementation  (name:'teamssdk_10', ext:'aar')
+    implementation  (name:'teamssdk_11', ext:'aar')
+    implementation  (name:'teamssdk_12', ext:'aar')
+    implementation  (name:'teamssdk_13', ext:'aar')
+    implementation  (name:'teamssdk_14', ext:'aar')
+    implementation  (name:'teamssdk_15', ext:'aar')
+    implementation  (name:'teamssdk_16', ext:'aar')
+    implementation  (name:'teamssdk_17', ext:'aar')
+    implementation  (name:'teamssdk_18', ext:'aar')
+    implementation  (name:'teamssdk_19', ext:'aar')
+    implementation  (name:'teamssdk_20', ext:'aar')
+    implementation  (name:'teamssdk_21', ext:'aar')
+    implementation  (name:'teamssdk_22', ext:'aar')
+    implementation  (name:'teamssdk_23', ext:'aar')
+    implementation  (name:'teamssdk_24', ext:'aar')
+    implementation  (name:'teamssdk_25', ext:'aar')
+
+    // ADAL
+    implementation ("com.microsoft.aad:adal:${versions.adal}") {
+        exclude module: 'common'
+    }
+
+    implementation "commons-io:commons-io:${versions.commonsIO}"
+
+    // BluetoothClassicLibrary
+    implementation "com.github.douglasjunior.AndroidBluetoothLibrary:BluetoothClassicLibrary:${versions.bluetoothClassicLibrary}"
+
+    // Bolts tasks
+    implementation "com.parse.bolts:bolts-tasks:${versions.boltTasks}"
+
+    // ButterKnife: View injection
+    implementation "com.jakewharton:butterknife:${versions.butterKnife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
+
+    // Data Binding
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:${versions.bindingcollectionadapter}"
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:${versions.bindingcollectionadapter}"
+
+    // Facebook dependencies
+    implementation "com.facebook.device.yearclass:yearclass:${versions.yearclass}"
+    implementation "com.facebook.fresco:fresco:${versions.fresco}"
+    implementation "com.facebook.fresco:imagepipeline-okhttp3:${versions.fresco}"
+    implementation "com.facebook.network.connectionclass:connectionclass:${versions.connectionclass}"
+
+    //Jacoco
+    implementation "org.jacoco:org.jacoco.agent:${versions.jacoco}:runtime"
+
+    // Job scheduler compatible library
+    implementation "com.firebase:firebase-jobdispatcher:${versions.firebase}"
+
+    // Jsoup: HTML parsing
+    implementation "org.jsoup:jsoup:${versions.jsoup}"
+
+    implementation ("com.microsoft.identity.client:msal:${versions.msal}") {
+        exclude group: 'com.android.support', module: 'customtabs'
+    }
+
+    // OKHttp: networking framework
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+
+    // Preference helper
+    implementation "com.pixplicity.easyprefs:library:${versions.easyprefs}@aar"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+
+    //Sticky header
+    implementation "com.brandongogetap:stickyheaders:${versions.stickyHeader}"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:${versions.lottie}"
+
+    api "com.splitwise:tokenautocomplete:${versions.tokenautocomplete}@aar"
+}
