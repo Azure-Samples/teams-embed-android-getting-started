@@ -96,7 +96,7 @@ ext.versions = [
         'libphonenumber'          : '7.0.11',
         'lifecycle'               : '2.0.0',
         'lottie'                  : '3.3.1',
-        'msal'                    : '2.0.4',
+        'msal'                    : '2.0.5',
         'multidex'                : '2.0.0',
         'nav_version'             : '2.3.0',
         'okhttp'                  : '3.11.0',
@@ -169,6 +169,8 @@ dependencies {
     implementation  (name:'teamssdk_23', ext:'aar')
     implementation  (name:'teamssdk_24', ext:'aar')
     implementation  (name:'teamssdk_25', ext:'aar')
+    implementation  (name:'teamssdk_26', ext:'aar')
+    implementation  (name:'teamssdk_27', ext:'aar')
 
     // ADAL
     implementation ("com.microsoft.aad:adal:${versions.adal}") {
