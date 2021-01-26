@@ -1,57 +1,40 @@
-# Project Name
+# Quickstart: Add Meeting Composite to your Android app
 
-(short, 1-3 sentenced, description of the project)
+For full instructions on how to build this code sample from scratch, look at [Quickstart: Add meeting composite to your Android app](https://docs.microsoft.com/en-us/azure/communication-services/quickstarts/meeting/getting-started-with-meeting-composite?pivots=platform-android)
 
-## Features
+## Prerequisites
 
-This project framework provides the following features:
+To complete this tutorial, you’ll need the following prerequisites:
 
-* Feature 1
-* Feature 2
-* ...
+- An Azure account with an active subscription. [Create an account for free](https://azure.microsoft.com/free/?WT.mc_id=A261C142F). 
+- [Android Studio](https://developer.android.com/studio), for running your Android application.
+- A deployed Communication Services resource. [Create a Communication Services resource](https://docs.microsoft.com/en-us/azure/communication-services/quickstarts/create-communication-resource).
+- A [User Access Token](https://docs.microsoft.com/en-us/azure/communication-services/quickstarts/access-tokens?pivots=programming-language-csharp) for your Azure Communication Service.
 
-## Getting Started
+## Code Structure
 
-### Prerequisites
+- **./app/src/main/java/com/microsoft/MeetingSDKAndroidGettingStarted/MainActivity.java:** Contains core logic for calling SDK integration.
+- **./app/src/main/res/layout/activity_main.xml:** Contains core UI for sample app.
 
-(ideally very short, if any)
+## Object model
 
-- OS
-- Library version
-- ...
+The following classes and interfaces used in the quickstart handle some of the major features of the Azure Communication Services Meeting Composite library:
 
-### Installation
+| Name                                  | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| MeetingClient| The MeetingClient is the main entry point to the Meeting library.|
+| JoinOptions | JoinOptions are used for configurable options such as display name, and is the microphone muted, etc.|
+| CallState | The CallState is used to for reporting call state changes. The options are as follows: connecting, waitingInLobby, connected, and ended.|
 
-(ideally very short)
+## Before running sample code
 
-- npm install [package name]
-- mvn install
-- ...
+1. Open an instance of PowerShell, Windows Terminal, Command Prompt or equivalent and navigate to the directory that you'd like to clone the sample to.
+2. `git clone https://github.com/Azure-Samples/meeting-sdk-android-getting-started.git` 
+3. With the `Access Token` procured in pre-requisites, add it to the **./app/src/main/java/com/microsoft/MeetingSDKAndroidGettingStarted/MainActivity.java** file. Assign your access token in line 27:
+   ```private static final String UserToken = "<User_Access_Token>";```
 
-### Quickstart
-(Add steps to get up and running quickly)
+## Run the sample
 
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
+Open the sample project using Android Studio and run the application.
 
-
-## Demo
-
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
-
-## Resources
-
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+![Final look and feel of the quick start app](../Media/quickstart-android-call-echobot.png)
