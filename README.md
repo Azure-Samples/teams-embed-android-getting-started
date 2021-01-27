@@ -37,4 +37,6 @@ The following classes and interfaces used in the quickstart handle some of the m
 
 Open the sample project using Android Studio and run the application.
 
-![Final look and feel of the quick start app](../Media/quickstart-android-call-echobot.png)
+![Final look and feel of the quick start app](Media/quickstart-android-join-meeting.png)
+
+![Final look and feel of the quick start app](Media/quickstart-android-joined-meeting.png)
