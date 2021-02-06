@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.azure.android.communication.common.CommunicationUserCredential;
-import com.azure.android.communication.MeetingSDK.MeetingSDK;
-import com.azure.android.communication.MeetingSDK.JoinOptions;
+import com.azure.android.communication.common.CommunicationTokenCredential;
+import com.azure.android.communication.ui.meetings.MeetingUIClient;
+import com.azure.android.communication.ui.meetings.JoinOptions;
 
 import java.util.ArrayList;
 
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private final String meetingUrl = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTAxOWZkMjgtYjk5YS00Y2U5LWE2ZTEtNjBkYTNkY2JmZGI0%40thread.v2/0?context=%7b%22Tid%22%3a%2272f988bf-86f1-41af-91ab-2d7cd011db47%22%2c%22Oid%22%3a%226a2237f3-1226-44f7-b215-1092b63bafed%22%7d";
     private final String displayName = "John Smith";
 
+    private MeetingUIClient meetingUIClient;
     private JoinOptions joinOptions;
 
     @Override
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         joinOptions = new JoinOptions();
         joinOptions.displayName = displayName;
 
+
         getAllPermissions();
         createMeetingClient();
 
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void createMeetingClient() {
         try {
-            CommunicationUserCredential credential = new CommunicationUserCredential(ACS_TOKEN);
-            MeetingSDK.initialize(credential);
+            CommunicationTokenCredential credential = new CommunicationTokenCredential(ACS_TOKEN);
+            meetingUIClient = new MeetingUIClient(credential);
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to create meeting client.", Toast.LENGTH_SHORT).show();
         }
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void joinMeeting() {
         try {
-            MeetingSDK.joinMeetingWith(meetingUrl, joinOptions);
+            meetingUIClient.joinMeeting(meetingUrl, joinOptions);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Failed to joing meeting.", Toast.LENGTH_SHORT).show();
         }
