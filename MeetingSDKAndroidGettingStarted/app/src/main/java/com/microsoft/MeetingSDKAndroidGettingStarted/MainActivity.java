@@ -14,18 +14,19 @@ import androidx.core.app.ActivityCompat;
 
 import com.azure.android.communication.common.CommunicationTokenCredential;
 import com.azure.android.communication.ui.meetings.CallState;
+import com.azure.android.communication.ui.meetings.MeetingAvatarAvailableCallback;
 import com.azure.android.communication.ui.meetings.MeetingEventListener;
-import com.azure.android.communication.ui.meetings.MeetingIdentityCallback;
 import com.azure.android.communication.ui.meetings.MeetingIdentityProvider;
 import com.azure.android.communication.ui.meetings.MeetingJoinOptions;
 import com.azure.android.communication.ui.meetings.MeetingUIClient;
+import com.microsoft.teamssdk.calling.MicrosoftTeamsSDK;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MeetingEventListener, MeetingIdentityProvider{
+public class MainActivity extends AppCompatActivity implements MeetingEventListener, MeetingIdentityProvider {
 
-    private final String ACS_TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwMiIsIng1dCI6IjNNSnZRYzhrWVNLd1hqbEIySmx6NTRQVzNBYyIsInR5cCI6IkpXVCJ9.eyJza3lwZWlkIjoiYWNzOjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYV8wMDAwMDAwOC0yOWEzLThhNmItNmEwYi0zNDNhMGQwMDAzMmYiLCJzY3AiOjE3OTIsImNzaSI6IjE2MTI5MjM5MjIiLCJpYXQiOjE2MTI5MjM5MjIsImV4cCI6MTYxMzAxMDMyMiwiYWNzU2NvcGUiOiJ2b2lwIiwicmVzb3VyY2VJZCI6IjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYSJ9.FU6epcsO30aaJw3oEgR8e99A2bNiVtfQGoVqx8t1563Epaz3WeDsZx4DAnICOtA4N0Kn-l5cU_KHB4htVBFM61algp7F_yEjzcWmZjpmteQwAXUJfDzcCq06za9SwxzU27ZhH-g97DgtnWEwAFayYExpFBBWiu9QsenWwhQM1rfbFkOcpJbxUOLDbrNzQQEE1Cq_nuN6xuzO1tRdpIeelKjMeSIaKK5hvnRkU3fmNdeBF2Uw1sQyxR8Bn0tr1aR3fYth0xYYHqqLQSBtEbwhQeXSetnPCP7Tu_g1HkE6r11OW7XFb_Acoh4LRb12m7Vz7aA1HOOUOkl0eSE2OPiJEA";
+    private final String ACS_TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwMiIsIng1dCI6IjNNSnZRYzhrWVNLd1hqbEIySmx6NTRQVzNBYyIsInR5cCI6IkpXVCJ9.eyJza3lwZWlkIjoiYWNzOjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYV8wMDAwMDAwOC0yZWZjLTE5ZDMtNmEwYi0zNDNhMGQwMDQ0YmQiLCJzY3AiOjE3OTIsImNzaSI6IjE2MTMwMTM2MTIiLCJpYXQiOjE2MTMwMTM2MTIsImV4cCI6MTYxMzEwMDAxMiwiYWNzU2NvcGUiOiJ2b2lwIiwicmVzb3VyY2VJZCI6IjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYSJ9.03NM940YA2eWwN1LuPGWH04n0JlJqlRhpZJJrq_CqC6rkNa_cdNsF3nV1Aar6995dqmLg4SISPRvKWuymoKNXdrdXqYnvZyNQHUd7AQtobsyfE5YLQLkmU0Bd0k-mpNDfDisRSFthEsgy-ALAFPxQX4mGPLxQ1t7MqOwTNKsp1tdOaYvHM3lpvBVxhF797mEcYfaC_R_pVUD0QVzIFx4E3E5lS_vunn_VuqAZPhlBqGHyyEyHObnTBKbSfZSbWrGbU7ZPUl__iVhb_5jXu02o5G4Pfb1QrO-rWtQo8lzCNBFmIHFIG4Ey0P-Wl0GZIhj4EJoUE4d0vO9LbFKCd9S1g";
     private final String meetingUrl = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTA1YTBjOTMtNjFmMi00MzZiLThjMGUtMzYxZmUyZTJmOTZk%40thread.v2/0?context=%7b%22Tid%22%3a%2272f988bf-86f1-41af-91ab-2d7cd011db47%22%2c%22Oid%22%3a%226ab9fe04-8ebd-4fe9-a2ed-70c449c924fa%22%7d";
     private final String displayName = "John Smith";
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
             meetingUIClient = new MeetingUIClient(credential);
             meetingUIClient.setMeetingEventListener(this);
             meetingUIClient.setMeetingIdentityProvider(this);
+            //MicrosoftTeamsSDK.setMicrosoftTeamsSDKIdentifyProvider(this);
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to create meeting client: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -78,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
         }
     }
 
-    private void updateAvatarImageAsynchronously(Context context, String identifier, MeetingIdentityCallback observer)
+    private void updateAvatarImageAsynchronously(Context context, String identifier, MeetingAvatarAvailableCallback observer)
     {
-        WeakReference<MeetingIdentityCallback> weakReferenceObserver = new WeakReference<MeetingIdentityCallback>(observer);
+        WeakReference<MeetingAvatarAvailableCallback> weakReferenceObserver = new WeakReference<MeetingAvatarAvailableCallback>(observer);
         // Fetch Avatar in new thread
         new Thread(new Runnable() {
             public void run()
@@ -92,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Drawable myAvatar = AppCompatResources.getDrawable(context, R.drawable.find_doctor_icon);
+                Drawable myAvatar = AppCompatResources.getDrawable(context, R.drawable.nodpi_avatar_placeholder_large_pink);
 
                 // provide avatar when it is available.
-                MeetingIdentityCallback callback = weakReferenceObserver.get();
+                MeetingAvatarAvailableCallback callback = weakReferenceObserver.get();
                 if (callback != null) {
                     System.out.println("invoke the callback method with fetched avatar");
                     callback.onAvatarAvailable(myAvatar);
@@ -117,23 +119,26 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
     }
 
     @Override
-    public Drawable onProvideAvatar(String identifier, MeetingIdentityCallback meetingIdentityCallback) {
+    public void requestForAvatar(String userIdentifier, MeetingAvatarAvailableCallback meetingAvatarAvailableCallback) {
         Drawable myAvatar = null;
 
         try {
-            if (identifier.startsWith("8:meetingvistor:")) {
-                // get and provide avatar picture asynchronously.
-                updateAvatarImageAsynchronously(this, identifier, meetingIdentityCallback);
-                return myAvatar;
-            } else if (identifier.startsWith("8:orgid:")) {
-                myAvatar = AppCompatResources.getDrawable(this, R.drawable.doctor_image);
-                return myAvatar;
-            } else {
-                return null;
+            System.out.println("MicrosoftTeamsSDKIdentityProvider.requestForAvatar called for userIdentifier: " + userIdentifier );
+            if (userIdentifier.startsWith("8:teamsvisitor:")) {
+                // get and provide avatar picture asynchronously with long fetching/decoding delay.
+                System.out.println("invoke the callback method asynchronously with avatar for Anonymous user");
+                updateAvatarImageAsynchronously(this, userIdentifier, meetingAvatarAvailableCallback);
+            } else if (userIdentifier.startsWith("8:orgid:")) {
+                System.out.println("invoke the callback method immediately with avatar for OrgID user");
+                myAvatar = AppCompatResources.getDrawable(this, R.drawable.nodpi_doctor_image);
+                meetingAvatarAvailableCallback.onAvatarAvailable(myAvatar);
+            }  else if (userIdentifier.startsWith("8:acs:")) {
+                System.out.println("invoke the callback method immediately with avatar for ACS user");
+                myAvatar = AppCompatResources.getDrawable(this, R.drawable.nodpi_avatar_placeholder_large_green);
+                meetingAvatarAvailableCallback.onAvatarAvailable(myAvatar);
             }
         } catch (Exception e) {
-            System.out.println("Exception while onProvideAvatar for identifier: " + identifier + e.getMessage());
-            return null;
+            System.out.println("MicrosoftTeamsSDKIdentityProvider: Exception while requestForAvatar for userIdentifier: " + userIdentifier + e.getMessage());
         }
     }
 }
