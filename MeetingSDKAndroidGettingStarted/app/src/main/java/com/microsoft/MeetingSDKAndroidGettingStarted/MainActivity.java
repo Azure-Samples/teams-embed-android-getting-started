@@ -19,7 +19,6 @@ import com.azure.android.communication.ui.meetings.MeetingEventListener;
 import com.azure.android.communication.ui.meetings.MeetingIdentityProvider;
 import com.azure.android.communication.ui.meetings.MeetingJoinOptions;
 import com.azure.android.communication.ui.meetings.MeetingUIClient;
-import com.microsoft.teamssdk.calling.MicrosoftTeamsSDK;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
