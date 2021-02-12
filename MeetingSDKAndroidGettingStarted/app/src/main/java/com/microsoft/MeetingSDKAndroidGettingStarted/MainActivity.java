@@ -1,3 +1,9 @@
+//----------------------------------------------------------------
+// Copyright (c) Microsoft Corporation. All rights reserved.
+//
+// Module name: MainActivity.java
+//----------------------------------------------------------------
+
 package com.microsoft.MeetingSDKAndroidGettingStarted;
 
 import android.Manifest;
