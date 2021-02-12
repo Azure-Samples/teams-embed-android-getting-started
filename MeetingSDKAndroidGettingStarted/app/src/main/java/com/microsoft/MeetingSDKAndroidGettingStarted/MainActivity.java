@@ -25,8 +25,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MeetingEventListener, MeetingIdentityProvider {
 
-    private final String ACS_TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwMiIsIng1dCI6IjNNSnZRYzhrWVNLd1hqbEIySmx6NTRQVzNBYyIsInR5cCI6IkpXVCJ9.eyJza3lwZWlkIjoiYWNzOjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYV8wMDAwMDAwOC0yZWZjLTE5ZDMtNmEwYi0zNDNhMGQwMDQ0YmQiLCJzY3AiOjE3OTIsImNzaSI6IjE2MTMwMTM2MTIiLCJpYXQiOjE2MTMwMTM2MTIsImV4cCI6MTYxMzEwMDAxMiwiYWNzU2NvcGUiOiJ2b2lwIiwicmVzb3VyY2VJZCI6IjA4YjcyZjk0LTc2ZDgtNDFhNS04YTg3LTYxNmU1YjNlY2IyYSJ9.03NM940YA2eWwN1LuPGWH04n0JlJqlRhpZJJrq_CqC6rkNa_cdNsF3nV1Aar6995dqmLg4SISPRvKWuymoKNXdrdXqYnvZyNQHUd7AQtobsyfE5YLQLkmU0Bd0k-mpNDfDisRSFthEsgy-ALAFPxQX4mGPLxQ1t7MqOwTNKsp1tdOaYvHM3lpvBVxhF797mEcYfaC_R_pVUD0QVzIFx4E3E5lS_vunn_VuqAZPhlBqGHyyEyHObnTBKbSfZSbWrGbU7ZPUl__iVhb_5jXu02o5G4Pfb1QrO-rWtQo8lzCNBFmIHFIG4Ey0P-Wl0GZIhj4EJoUE4d0vO9LbFKCd9S1g";
-    private final String meetingUrl = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTA1YTBjOTMtNjFmMi00MzZiLThjMGUtMzYxZmUyZTJmOTZk%40thread.v2/0?context=%7b%22Tid%22%3a%2272f988bf-86f1-41af-91ab-2d7cd011db47%22%2c%22Oid%22%3a%226ab9fe04-8ebd-4fe9-a2ed-70c449c924fa%22%7d";
+    private final String ACS_TOKEN = "<ACS_TOKEN>";
+    private final String meetingUrl = "<MEETING_URL>";
     private final String displayName = "John Smith";
 
     private MeetingUIClient meetingUIClient;
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
             meetingUIClient = new MeetingUIClient(credential);
             meetingUIClient.setMeetingEventListener(this);
             meetingUIClient.setMeetingIdentityProvider(this);
-            //MicrosoftTeamsSDK.setMicrosoftTeamsSDKIdentifyProvider(this);
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to create meeting client: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
