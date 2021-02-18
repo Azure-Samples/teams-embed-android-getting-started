@@ -35,6 +35,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity implements MeetingEventListener, MeetingIdentityProvider {
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
 
     private void createMeetingClient() {
         try {
-            CommunicationTokenCredential credential = new CommunicationTokenCredential(ACS_TOKEN);
+            CommunicationTokenCredential credential = new CommunicationTokenCredential(tokenRefresher, true, ACS_TOKEN);
             meetingUIClient = new MeetingUIClient(credential);
             meetingUIClient.setMeetingEventListener(this);
             meetingUIClient.setMeetingIdentityProvider(this);
@@ -89,6 +90,14 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
         if (!permissionsToAskFor.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionsToAskFor.toArray(new String[0]), 202);
         }
+    }
+
+    Callable<String> tokenRefresher = () -> {
+        return fetchToken();
+    };
+
+    public String fetchToken() {
+        // Get new token
     }
 
     @Override
