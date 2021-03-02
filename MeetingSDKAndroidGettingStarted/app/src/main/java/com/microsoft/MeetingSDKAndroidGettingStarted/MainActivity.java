@@ -97,12 +97,26 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
     };
 
     public String fetchToken() {
-        // Get new token
+        // Get token
+        return "";
     }
 
     @Override
     public void onCallStateChanged(CallState callState) {
-        System.out.println("Call state changed: " + callState);
+        switch(callState) {
+            case CONNECTING:
+                System.out.println("Call state changed to 'Connecting'");
+                break;
+            case CONNECTED:
+                System.out.println("Call state changed to 'Connected'");
+                break;
+            case WAITING_IN_LOBBY:
+                System.out.println("Call state changed to 'Waiting in Lobby'");
+                break;
+            case ENDED:
+                System.out.println("Call state changed to 'Ended'");
+                break;
+        }
     }
 
     @Override
