@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.microsoft.MeetingSDKAndroidGettingStarted">
+    package="com.microsoft.TeamsEmbedAndroidGettingStarted">
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <application
-        android:name=".MeetingSDKAndroidGettingStarted"
+        android:name=".TeamsEmbedAndroidGettingStarted"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name="com.microsoft.MeetingSDKAndroidGettingStarted.MainActivity">
+        <activity android:name="com.microsoft.TeamsEmbedAndroidGettingStarted.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

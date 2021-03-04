@@ -1,12 +1,12 @@
 //----------------------------------------------------------------
 // Copyright (c) Microsoft Corporation. All rights reserved.
 //
-// Module name: MeetingSDKAndroidGettingStarted.java
+// Module name: TeamsEmbedAndroidGettingStarted.java
 //----------------------------------------------------------------
 
-package com.microsoft.MeetingSDKAndroidGettingStarted;
+package com.microsoft.TeamsEmbedAndroidGettingStarted;
 
 import com.microsoft.teamssdk.app.TeamsSDKApplication;
 
-public class MeetingSDKAndroidGettingStarted extends TeamsSDKApplication {
+public class TeamsEmbedAndroidGettingStarted extends TeamsSDKApplication {
 }

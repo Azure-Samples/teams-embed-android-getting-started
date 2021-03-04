@@ -4,7 +4,7 @@
 // Module name: MainActivity.java
 //----------------------------------------------------------------
 
-package com.microsoft.MeetingSDKAndroidGettingStarted;
+package com.microsoft.TeamsEmbedAndroidGettingStarted;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
