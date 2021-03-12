@@ -8,36 +8,27 @@ package com.microsoft.TeamsEmbedAndroidGettingStarted;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.azure.android.communication.common.CommunicationTokenCredential;
 import com.azure.android.communication.common.CommunicationTokenRefreshOptions;
 import com.azure.android.communication.ui.meetings.CallState;
-import com.azure.android.communication.ui.meetings.MeetingEventListener;
-import com.azure.android.communication.ui.meetings.MeetingIdentityProvider;
-import com.azure.android.communication.ui.meetings.MeetingIdentityProviderCallback;
 import com.azure.android.communication.ui.meetings.MeetingJoinOptions;
 import com.azure.android.communication.ui.meetings.MeetingUIClient;
+import com.azure.android.communication.ui.meetings.MeetingUIClientEventListener;
+import com.azure.android.communication.ui.meetings.MeetingUIClientIdentityProvider;
+import com.azure.android.communication.ui.meetings.MeetingUIClientIdentityProviderCallback;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-public class MainActivity extends AppCompatActivity implements MeetingEventListener, MeetingIdentityProvider {
+public class MainActivity extends AppCompatActivity implements MeetingUIClientEventListener, MeetingUIClientIdentityProvider {
 
     private final String ACS_TOKEN = "<ACS_TOKEN>";
     private final String meetingUrl = "<MEETING_URL>";
@@ -65,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
             CommunicationTokenRefreshOptions refreshOptions = new CommunicationTokenRefreshOptions(tokenRefresher, true, ACS_TOKEN);
             CommunicationTokenCredential credential = new CommunicationTokenCredential(refreshOptions);
             meetingUIClient = new MeetingUIClient(credential);
-            meetingUIClient.setMeetingEventListener(this);
-            meetingUIClient.setMeetingIdentityProvider(this);
+            meetingUIClient.setMeetingUIClientEventListener(this);
+            meetingUIClient.setMeetingUIClientIdentityProvider(this);
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to create meeting client: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -126,64 +117,18 @@ public class MainActivity extends AppCompatActivity implements MeetingEventListe
     }
 
     @Override
-    public void provideAvatarFor(String userIdentifier, MeetingIdentityProviderCallback meetingIdentityProviderCallback) {
-        Drawable myAvatar = null;
+    public void provideAvatarFor(String userIdentifier, MeetingUIClientIdentityProviderCallback meetingIdentityProviderCallback) {
         try {
-            System.out.println("MicrosoftTeamsSDKIdentityProvider.requestForAvatar called for userIdentifier: " + userIdentifier);
+            System.out.println("MeetingUIClientIdentityProvider.provideAvatarFor called for userIdentifier: " + userIdentifier);
             if (userIdentifier.startsWith("8:teamsvisitor:")) {
-                // get and provide avatar picture asynchronously with long fetching/decoding delay.
-                System.out.println("update avatar for Anonymous user");
-                String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/doughboy_36x36.png";
-                updateAvatarFromUrl(imageUrl, meetingIdentityProviderCallback);
+                meetingIdentityProviderCallback.onAvatarAvailable(ContextCompat.getDrawable(this, R.drawable.nodpi_avatar_placeholder_large_pink));
             } else if (userIdentifier.startsWith("8:orgid:")) {
-                System.out.println("update avatar for OrgID user");
-                String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/qingy_120.jpg";
-                updateAvatarFromUrl(imageUrl, meetingIdentityProviderCallback);
+                meetingIdentityProviderCallback.onAvatarAvailable(ContextCompat.getDrawable(this, R.drawable.nodpi_doctor_avatar));
             } else if (userIdentifier.startsWith("8:acs:")) {
-                System.out.println("update avatar for ACS user");
-                String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/msudan.png";
-                updateAvatarFromUrl(imageUrl, meetingIdentityProviderCallback);
+                meetingIdentityProviderCallback.onAvatarAvailable(ContextCompat.getDrawable(this, R.drawable.nodpi_avatar_placeholder_large_green));
             }
         } catch (Exception e) {
-            System.out.println("MicrosoftTeamsSDKIdentityProvider: Exception while requestForAvatar for userIdentifier: " + userIdentifier + e.getMessage());
+            System.out.println("MeetingUIClientIdentityProvider: Exception while provideAvatarFor for userIdentifier: " + userIdentifier + e.getMessage());
         }
-    }
-
-    /**
-     * download and callback to set the Avatar image from web URL.
-     * We have a few sample images on CDN
-     *                 String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/doughboy_36x36.png";
-     *                 String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/qingy_120.jpg";
-     *                 String imageUrl = "https://mlccdn.blob.core.windows.net/dev/LWA/qingy/msudan.png";
-     */
-    private void updateAvatarFromUrl(String url, MeetingIdentityProviderCallback meetingIdentityProviderCallback) {
-        String urlImage = url;
-        WeakReference<MeetingIdentityProviderCallback> weakReferenceObserver = new WeakReference<>(meetingIdentityProviderCallback);
-        new AsyncTask<String, Integer, Drawable>(){
-            @Override
-            protected Drawable doInBackground(String... strings) {
-                Bitmap bitmap = null;
-                try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL(urlImage).openConnection();
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    bitmap = BitmapFactory.decodeStream(input);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Drawable d = new BitmapDrawable(getResources(), bitmap);
-                return d;
-            }
-            protected void onPostExecute(Drawable myAvatar) {
-                // provide avatar when it is available.
-                MeetingIdentityProviderCallback callback = weakReferenceObserver.get();
-                if (callback != null) {
-                    System.out.println("invoke the callback method with fetched avatar");
-                    callback.onAvatarAvailable(myAvatar);
-                } else {
-                    System.out.println("callback observer are reclaimed, there is no need to update avatar in UI anymore");
-                }
-            }
-        }.execute();
     }
 }
