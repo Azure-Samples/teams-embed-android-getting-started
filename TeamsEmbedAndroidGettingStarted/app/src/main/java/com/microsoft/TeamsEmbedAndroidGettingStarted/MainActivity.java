@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
     private final String ACS_TOKEN = "<ACS_TOKEN>";
     private final String meetingUrl = "<MEETING_URL>";
     private final String displayName = "John Smith";
-    private final UUID groupId = UUID.fromString("29228d3e-040e-4656-a70e-890ab4e173e5");
+    private final UUID groupId = UUID.fromString("<GROUP_ID>");
 
     private MeetingUIClient meetingUIClient;
     private MeetingUIClientJoinOptions meetingJoinOptions;
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
 
     @Override
     public void onNamePlateOptionsClicked(Activity activity, String userIdentifier) {
-        Toast.makeText(getApplicationContext(), "Name plate options clicked:", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Name plate options clicked", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isAnonymousVisitor(String userIdentifier) {
