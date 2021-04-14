@@ -15,4 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/join_groupCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Group Call"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/join_meeting" />
 </androidx.constraintlayout.widget.ConstraintLayout>
