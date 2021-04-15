@@ -28,7 +28,8 @@ import com.azure.android.communication.ui.meetings.MeetingUIClientIdentityProvid
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-public class MainActivity extends AppCompatActivity implements MeetingUIClientEventListener, MeetingUIClientIdentityProvider {
+public class MainActivity extends AppCompatActivity implements MeetingUIClientEventListener,
+        MeetingUIClientIdentityProvider {
 
     private final String ACS_TOKEN = "<ACS_TOKEN>";
     private final String meetingUrl = "<MEETING_URL>";
