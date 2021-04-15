@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
     private MeetingUIClient meetingUIClient;
     private MeetingUIClientJoinOptions meetingJoinOptions;
 
+    private TextView statusLabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
 
         Button joinGroupCall = findViewById(R.id.join_groupCall);
         joinGroupCall.setOnClickListener(l -> joinGroupCall());
+
+        Button endMeeting = findViewById(R.id.end_meeting);
+        endMeeting.setOnClickListener(l -> endMeeting());
+
+        statusLabel = findViewById(R.id.status_label);
     }
 
     private void createMeetingClient() {
@@ -78,8 +86,18 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
         try {
             MeetingUIClientTeamsMeetingLinkLocator meetingUIClientTeamsMeetingLinkLocator = new MeetingUIClientTeamsMeetingLinkLocator(meetingUrl);
             meetingUIClient.join(meetingUIClientTeamsMeetingLinkLocator, meetingJoinOptions);
+            statusLabel.setText("Started to join ...");
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to join meeting: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void endMeeting() {
+        try {
+            meetingUIClient.endMeeting();
+            statusLabel.setText("Ending call ...");
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), "Failed to end meeting: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -87,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
         try {
             MeetingUIClientGroupCallLocator meetingUIClientGroupCallLocator = new MeetingUIClientGroupCallLocator(groupId);
             meetingUIClient.join(meetingUIClientGroupCallLocator, meetingJoinOptions);
+            statusLabel.setText("Started to join ...");
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Failed to join meeting: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -118,15 +137,19 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
     public void onCallStateChanged(MeetingUIClientCallState callState) {
         switch(callState) {
             case CONNECTING:
+                statusLabel.setText("Connecting");
                 System.out.println("Call state changed to 'Connecting'");
                 break;
             case CONNECTED:
+                statusLabel.setText("Connected");
                 System.out.println("Call state changed to 'Connected'");
                 break;
             case WAITING_IN_LOBBY:
+                statusLabel.setText("In Lobby");
                 System.out.println("Call state changed to 'Waiting in Lobby'");
                 break;
             case ENDED:
+                statusLabel.setText("No active call");
                 System.out.println("Call state changed to 'Ended'");
                 break;
         }
