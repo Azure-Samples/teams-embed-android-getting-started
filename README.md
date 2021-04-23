@@ -22,9 +22,9 @@ The following classes and interfaces used in the quickstart handle some of the m
 
 | Name                                  | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
-| MeetingClient| The MeetingClient is the main entry point to the Meeting library.|
-| MeetingJoinOptions | MeetingJoinOptions are used for configurable options such as display name|
-| CallState | The CallState is used to for reporting call state changes. The options are as follows: connecting, waitingInLobby, connected, and ended.|
+| MeetingUIClient| The MeetingUIClient is the main entry point to the Meeting library.|
+| MeetingUIClientJoinOptions | MeetingUIClientJoinOptions are used for configurable options such as display name|
+| MeetingUIClientCallState | The MeetingUIClientCallState is used to for reporting call state changes. The options are as follows: connecting, waitingInLobby, connected, and ended.|
 
 ## Before running sample code
 
