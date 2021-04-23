@@ -37,7 +37,7 @@ import java.util.concurrent.Callable;
 public class MainActivity extends AppCompatActivity implements MeetingUIClientEventListener,
         MeetingUIClientIdentityProvider, MeetingUIClientUserEventListener {
 
-    private final String ACS_TOKEN = "<ACS_TOKEN>";
+    private final String USER_ACCESS_TOKEN = "<USER_ACCESS_TOKEN>";
     private final String meetingUrl = "<MEETING_URL>";
     private final String displayName = "John Smith";
     private final UUID groupId = UUID.fromString("<GROUP_ID>");
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
 
     private void createMeetingClient() {
         try {
-            CommunicationTokenRefreshOptions refreshOptions = new CommunicationTokenRefreshOptions(tokenRefresher, true, ACS_TOKEN);
+            CommunicationTokenRefreshOptions refreshOptions = new CommunicationTokenRefreshOptions(tokenRefresher, true, USER_ACCESS_TOKEN);
             CommunicationTokenCredential credential = new CommunicationTokenCredential(refreshOptions);
             meetingUIClient = new MeetingUIClient(credential);
             meetingUIClient.setMeetingUIClientEventListener(this);
