@@ -22,9 +22,14 @@ The following classes and interfaces used in the quickstart handle some of the m
 
 | Name                                  | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
-| MeetingUIClient| The MeetingUIClient is the main entry point to the Meeting library.|
+| MeetingUIClient | The MeetingUIClient is the main entry point to the Meeting library.|
 | MeetingUIClientJoinOptions | MeetingUIClientJoinOptions are used for configurable options such as display name|
-| MeetingUIClientCallState | The MeetingUIClientCallState is used to for reporting call state changes. The options are as follows: connecting, waitingInLobby, connected, and ended.|
+| MeetingUIClientTeamsMeetingLinkLocator | MeetingUIClientTeamsMeetingLinkLocator is used to set the meeting URL for joining a meeting.|
+| MeetingUIClientGroupCallLocator | MeetingUIClientGroupCallLocator is used for setting the group id to join.|
+| MeetingUIClientCallState | The CallState is used to for reporting call state changes. The options are as follows: connecting, waitingInLobby, connected, and ended.|
+| MeetingUIClientEventListener | The MeetingUIClientEventListener is used to receive events, such as changes in call state.|
+| MeetingUIClientIdentityProvider | The MeetingUIClientIdentityProvider is used to map user details to the users in a meeting.|
+| MeetingUIClientUserEventListener | The MeetingUIClientUserEventListener is used provide details in case user has clicked on specific UI elements.|
 
 ## Before running sample code
 
