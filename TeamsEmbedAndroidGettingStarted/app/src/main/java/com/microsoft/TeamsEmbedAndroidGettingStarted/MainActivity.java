@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
     private final String USER_ACCESS_TOKEN = "<USER_ACCESS_TOKEN>";
     private final String meetingUrl = "<MEETING_URL>";
     private final String displayName = "John Smith";
-    private final UUID groupId = UUID.fromString("<GROUP_ID>");
+    private final String groupId = "<GROUP_ID>";
 
     private MeetingUIClient meetingUIClient;
     private MeetingUIClientJoinOptions meetingJoinOptions;
@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
 
     private void joinGroupCall() {
         try {
-            MeetingUIClientGroupCallLocator meetingUIClientGroupCallLocator = new MeetingUIClientGroupCallLocator(groupId);
+            UUID groupUUID = UUID.fromString(groupId);
+            MeetingUIClientGroupCallLocator meetingUIClientGroupCallLocator = new MeetingUIClientGroupCallLocator(groupUUID);
             meetingUIClient.join(meetingUIClientGroupCallLocator, meetingJoinOptions);
             statusLabel.setText("Started to join ...");
         } catch (Exception ex) {
