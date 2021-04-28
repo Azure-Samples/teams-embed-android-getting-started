@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MeetingUIClientEv
             meetingUIClient.join(meetingUIClientGroupCallLocator, meetingJoinOptions);
             statusLabel.setText("Started to join ...");
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), "Failed to join meeting: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Failed to join group call: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
