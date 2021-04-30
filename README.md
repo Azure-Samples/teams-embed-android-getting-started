@@ -39,7 +39,7 @@ The following classes and interfaces used in the quickstart handle some of the m
 3. Unzip and copy MicrosoftTeamsSDK folder into the project's app directory.
 4. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <USER_ACCESS_TOKEN> with the `Access Token` procured in pre-requisites.
 5. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <MEETING_URL> with a Microsoft Teams meeting url.
-6. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <GROUP_ID> with a group id UUID.
+6. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <GROUP_ID> with a group ID UUID string.
 
 ## Run the sample
 
