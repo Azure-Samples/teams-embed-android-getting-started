@@ -1,49 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:paddingTop="?attr/actionBarSize">
 
-    <Button
-        android:id="@+id/join_meeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Join Meeting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/join_groupCall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Join Group Call"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/join_meeting" />
 
-    <Button
-        android:id="@+id/end_meeting"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="End Meeting"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/join_groupCall" />
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    <TextView
-        android:id="@+id/status_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="No active call"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/end_meeting" />
 </androidx.constraintlayout.widget.ConstraintLayout>

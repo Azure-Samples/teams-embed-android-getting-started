@@ -37,9 +37,11 @@ The following classes and interfaces used in the quickstart handle some of the m
 1. Open an instance of PowerShell, Windows Terminal, Command Prompt or equivalent and navigate to the directory that you'd like to clone the sample to.
 2. `git clone https://github.com/Azure-Samples/teams-embed-android-getting-started.git` 
 3. Unzip and copy MicrosoftTeamsSDK folder into the project's app directory.
-4. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <USER_ACCESS_TOKEN> with the `Access Token` procured in pre-requisites.
-5. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <MEETING_URL> with a Microsoft Teams meeting url.
-6. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/MainActivity.java** file, replace <GROUP_ID> with a group ID UUID string.
+4. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/ui/teams/TeamsFragment.java** and **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/ui/acs/AcsFragment.java**
+   files, replace <USER_ACCESS_TOKEN> with the `Access Token` procured in pre-requisites.
+5. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/ui/teams/TeamsFragment.java** file, replace <MEETING_URL> with a Microsoft Teams meeting url.
+6. In the **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/ui/teams/TeamsFragment.java** and **./app/src/main/java/com/microsoft/TeamsEmbedAndroidGettingStarted/ui/acs/AcsFragment.java**
+   files, replace <GROUP_ID> with a group ID UUID string.
 
 ## Run the sample
 

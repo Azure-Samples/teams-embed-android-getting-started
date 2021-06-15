@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/call_buttons_container_sdk"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no"
+    android:focusable="false"
+    android:clipChildren="true"
+    android:visibility="visible">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/calling_options_bar_sdk"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:clipChildren="true"
+        android:importantForAccessibility="no"
+        android:clickable="false"
+        app:cardElevation="@dimen/call_control_elevation"
+        app:cardBackgroundColor="@color/app_true_black">
+
+        <LinearLayout
+            android:id="@+id/calling_options_bar_icons_sdk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:background="@color/transparent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight = "1"
+            android:clickable="false">
+            <Button
+                android:id="@+id/call_placeholder_button_1"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:visibility="visible"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:clickable="false"
+                android:text="@string/video_off"
+                android:textColor="@color/white"
+                style="?android:attr/buttonBarButtonStyle"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/call_placeholder_button_2"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:focusable="false"
+                android:visibility="visible"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:clickable="false"
+                android:text="@string/mic_off"
+                android:textColor="@color/white"
+                style="?android:attr/buttonBarButtonStyle"
+                tools:visibility="visible"/>
+
+            <Button
+                android:id="@+id/call_placeholder_button_3"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:focusable="false"
+                android:visibility="visible"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:clickable="false"
+                android:text="@string/audio_speaker"
+                android:textColor="@color/white"
+                style="?android:attr/buttonBarButtonStyle"
+                tools:visibility="visible" />
+
+
+            <Button
+                android:id="@+id/call_placeholder_button_4"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:focusable="false"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:visibility="visible"
+                android:clickable="false"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/raise_hand"
+                android:textColor="@color/white"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
