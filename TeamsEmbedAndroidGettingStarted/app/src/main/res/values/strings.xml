@@ -32,6 +32,7 @@
     <string name="acs_call_failed">Failed to get call object</string>
     <string name="acs_disposing">Disposing ACS</string>
     <string name="acs_disposed">Disposed ACS</string>
+    <string name="acs_dispose_failed">ACS dispose failed.</string>
     <string name="acs_call_agent_success">Call agent successfully created</string>
     <string name="acs_call_agent_failed">Failed to create call agent</string>
     <string name="acs_credential_failed">Failed to create CommunicationTokenCredential</string>

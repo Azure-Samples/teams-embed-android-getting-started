@@ -100,9 +100,8 @@ public class AcsFragment extends Fragment {
     }
 
     private void stopAcs() {
-        mCall = null;
         updateStatusLabel(R.string.acs_disposing);
-        if (callAgent != null && mCallClient != null) {
+        if (mCall == null && callAgent != null && mCallClient != null) {
             synchronized (this) {
                 callAgent.dispose();
                 callAgent = null;
@@ -111,6 +110,8 @@ public class AcsFragment extends Fragment {
             }
             mPrefs.edit().putBoolean("isACSInitialized", false).apply();
             updateStatusLabel(R.string.acs_disposed);
+        } else {
+            updateStatusLabel(R.string.acs_dispose_failed);
         }
     }
 
@@ -118,6 +119,7 @@ public class AcsFragment extends Fragment {
         if (mCall != null) {
             mCall.hangUp(null).thenRun(() -> {
                 updateStatusLabel(R.string.hangup_successful);
+                mCall = null;
             });
         } else {
             updateStatusLabel(R.string.hangup_failed);
