@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_teams">
+
+    <fragment
+        android:id="@+id/navigation_teams"
+        android:name="com.microsoft.TeamsEmbedAndroidGettingStarted.ui.teams.TeamsFragment"
+        android:label="@string/title_teams"
+        tools:layout="@layout/fragment_teams" />
+
+    <fragment
+        android:id="@+id/navigation_acs"
+        android:name="com.microsoft.TeamsEmbedAndroidGettingStarted.ui.acs.AcsFragment"
+        android:label="@string/title_acs"
+        tools:layout="@layout/fragment_acs" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.microsoft.TeamsEmbedAndroidGettingStarted.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
