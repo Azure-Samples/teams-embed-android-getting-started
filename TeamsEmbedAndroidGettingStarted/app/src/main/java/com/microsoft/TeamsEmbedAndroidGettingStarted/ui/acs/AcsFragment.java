@@ -57,7 +57,7 @@ public class AcsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_acs, container, false);
 
-        mPrefs = this.getActivity().getSharedPreferences("Token_Pref", MODE_PRIVATE);
+        mPrefs = this.getActivity().getSharedPreferences(getString(R.string.sdk_shared_pref), MODE_PRIVATE);
 
         joinAcsCallButton = root.findViewById(R.id.join_acs_call);
         joinAcsCallButton.setOnClickListener(l -> {
@@ -87,7 +87,7 @@ public class AcsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupViews();
     }
@@ -138,7 +138,7 @@ public class AcsFragment extends Fragment {
 
     private CommunicationTokenCredential createCommunicationTokenCredential() {
         CommunicationTokenCredential credential = null;
-        final String access_token = mPrefs.getString("Access_Token", "");
+        final String access_token = mPrefs.getString(getString(R.string.access_token), "");
         final String USER_ACCESS_TOKEN = (access_token != null && access_token.isEmpty()) ? "<USER_ACCESS_TOKEN>" : access_token;
         try {
             credential = new CommunicationTokenCredential(USER_ACCESS_TOKEN);
@@ -168,7 +168,7 @@ public class AcsFragment extends Fragment {
     }
 
     private void startAcsCall() {
-        final String groupIdStr = mPrefs.getString("Group_Id", "");
+        final String groupIdStr = mPrefs.getString(getString(R.string.group_Id), "");
         final String groupId = (groupIdStr != null && groupIdStr.isEmpty()) ? "<GROUP_ID>" : groupIdStr;
         GroupCallLocator groupCallLocator = new GroupCallLocator(UUID.fromString(groupId));
         JoinCallOptions joinCallOptions = new JoinCallOptions();

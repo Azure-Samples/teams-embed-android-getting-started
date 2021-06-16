@@ -17,7 +17,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="20dp"
-                    android:hint="Meeting Url"
+                    android:hint="@string/meeting_url_str"
                     android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="20dp"
-                    android:hint="ACS token"
+                    android:hint="@string/acs_token_str"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="20dp"
-                    android:hint="Group ID"
+                    android:hint="@string/group_id_str"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,14 +65,14 @@
                             android:layout_alignParentEnd="true"
                             android:switchMinWidth="60dp"
                             android:checked="false"
-                            android:textOff="Off"
-                            android:textOn="On" />
+                            android:textOff="@string/switch_off"
+                            android:textOn="@string/switch_on" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="false"
-                            android:text="Show staging call screen"
+                            android:text="@string/show_staging_call_screen"
                             android:textSize="20sp" />
                 </RelativeLayout>
 
@@ -93,14 +93,14 @@
                             android:layout_alignParentEnd="true"
                             android:switchMinWidth="60dp"
                             android:checked="false"
-                            android:textOff="Off"
-                            android:textOn="On" />
+                            android:textOff="@string/switch_off"
+                            android:textOn="@string/switch_on" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="false"
-                            android:text="Customize call screen"
+                            android:text="@string/customize_call_screen"
                             android:textSize="20sp" />
                 </RelativeLayout>
 
@@ -109,13 +109,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:background="@color/colorPrimary"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:clickable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relative_customize_screen" />
+                    app:layout_constraintTop_toBottomOf="@+id/relative_customize_screen"
+                    android:focusable="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

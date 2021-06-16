@@ -63,7 +63,7 @@ public class TeamsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_teams, container, false);
 
-        mPrefs = this.getActivity().getSharedPreferences("Token_Pref", MODE_PRIVATE);
+        mPrefs = this.getActivity().getSharedPreferences(getString(R.string.sdk_shared_pref), MODE_PRIVATE);
 
         joinMeetingButton = root.findViewById(R.id.join_meeting);
         joinMeetingButton.setOnClickListener(l -> {
@@ -100,7 +100,7 @@ public class TeamsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupViews();
     }
@@ -131,7 +131,7 @@ public class TeamsFragment extends Fragment {
     private void createMeetingUIClient() {
         try {
             updateStatusLabel(R.string.sdk_initializing);
-            final String access_token = mPrefs.getString("Access_Token", "");
+            final String access_token = mPrefs.getString(getString(R.string.access_token), "");
             final String USER_ACCESS_TOKEN = (access_token != null && access_token.isEmpty()) ? "<USER_ACCESS_TOKEN>" : access_token;
             CommunicationTokenRefreshOptions refreshOptions = new CommunicationTokenRefreshOptions(tokenRefresher, true, USER_ACCESS_TOKEN);
             CommunicationTokenCredential credential = new CommunicationTokenCredential(refreshOptions);
@@ -150,7 +150,7 @@ public class TeamsFragment extends Fragment {
         try {
             createMeetingUIClient();
 
-            final String meetingLink = mPrefs.getString("Meeting_Url", "");
+            final String meetingLink = mPrefs.getString(getString(R.string.meeting_url), "");
             final String meetingUrl = (meetingLink!= null && meetingLink.isEmpty()) ? "<MEETING_URL>" : meetingLink;
             final String displayName = "John Smith";
 
@@ -203,16 +203,16 @@ public class TeamsFragment extends Fragment {
         try {
             createMeetingUIClient();
 
-            final String groupIdStr = mPrefs.getString("Group_Id", "");
+            final String groupIdStr = mPrefs.getString(getString(R.string.group_Id), "");
             final String groupId = (groupIdStr != null && groupIdStr.isEmpty()) ? "<GROUP_ID>" : groupIdStr;
             final String displayName = "John Smith";
 
             UUID groupUUID = UUID.fromString(groupId);
-            final boolean showStagingScreen = mPrefs.getBoolean("StagingScreen_Enabled", false);
+            final boolean showStagingScreen = mPrefs.getBoolean(getString(R.string.stagingScreen_enabled), false);
             MeetingUIClientJoinOptions meetingJoinOptions = new MeetingUIClientJoinOptions(displayName, showStagingScreen);
             MeetingUIClientGroupCallLocator meetingUIClientGroupCallLocator = new MeetingUIClientGroupCallLocator(groupUUID);
 
-            final boolean customizeCallScreen = mPrefs.getBoolean("CustomizeScreen_Enabled", false);
+            final boolean customizeCallScreen = mPrefs.getBoolean(getString(R.string.customizeScreen_enabled), false);
             CustomScreenProvider customScreenProvider = null;
             if (customizeCallScreen) {
                 customScreenProvider = new CustomScreenProvider(getContext(), this);
@@ -256,18 +256,6 @@ public class TeamsFragment extends Fragment {
 
     public void updateStatusLabel(int status) {
         getActivity().runOnUiThread(() -> statusLabel.setText(status));
-    }
-
-    public void cleanUp() {
-        if (meetingUIClientCall != null) {
-            meetingUIClientCall.setMeetingUIClientCallUserEventListener(null);
-            meetingUIClientCall.setMeetingUIClientCallIdentityProvider(null);
-            meetingUIClientCall.setMeetingUIClientCallEventListener(null);
-        } if(meetingUIClient != null) {
-            meetingUIClient.setMeetingUIClientInCallScreenProvider(null);
-            meetingUIClient.setMeetingUIClientConnectingScreenProvider(null);
-            meetingUIClient.setMeetingUIClientStagingScreenProvider(null);
-        }
     }
 
 }

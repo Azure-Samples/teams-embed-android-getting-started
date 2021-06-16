@@ -17,6 +17,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
+import com.microsoft.skype.teams.util.SystemUtil;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -55,17 +56,12 @@ public class SettingsFragment extends Fragment {
     }
 
     private void onSwitchCustomizeScreen(boolean isChecked) {
-        mPrefsEditor.putBoolean("CustomizeScreen_Enabled", isChecked);
+        mPrefsEditor.putBoolean(getString(R.string.customizeScreen_enabled), isChecked);
         mPrefsEditor.apply();
     }
 
     private void onSwitchStagingScreen(boolean isChecked) {
-        mPrefsEditor.putBoolean("StagingScreen_Enabled", isChecked);
-        mPrefsEditor.apply();
-    }
-
-    private void clearPreferenceEditor() {
-        mPrefsEditor.clear();
+        mPrefsEditor.putBoolean(getString(R.string.stagingScreen_enabled), isChecked);
         mPrefsEditor.apply();
     }
 
@@ -75,19 +71,20 @@ public class SettingsFragment extends Fragment {
         String groupIdStr = groupId.getText().toString();
         if(!meetingUrlStr.isEmpty())
         {
-            mPrefsEditor.putString("Meeting_Url", meetingUrlStr);
+            mPrefsEditor.putString(getString(R.string.meeting_url), meetingUrlStr);
         }
         if(!acsTokenStr.isEmpty()) {
-            mPrefsEditor.putString("Access_Token", acsTokenStr);
+            mPrefsEditor.putString(getString(R.string.access_token), acsTokenStr);
             if(!groupIdStr.isEmpty()) {
-                mPrefsEditor.putString("Group_Id", groupIdStr);
+                mPrefsEditor.putString(getString(R.string.group_Id), groupIdStr);
             }
         }
         mPrefsEditor.apply();
+        SystemUtil.showToast(this.getActivity(), getString(R.string.save_success));
     }
 
     private void setUpPrefEditor() {
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("Token_Pref", MODE_PRIVATE);
+        SharedPreferences prefs = this.getActivity().getSharedPreferences(getString(R.string.sdk_shared_pref), MODE_PRIVATE);
         if (prefs != null) {
             mPrefsEditor = prefs.edit();
         }

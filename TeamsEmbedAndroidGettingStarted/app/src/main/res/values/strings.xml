@@ -42,4 +42,20 @@
     <string name="device_audio">Device</string>
     <string name="speaker">Speaker</string>
     <string name="audio_off">Audio Off</string>
+    <string name="sdk_shared_pref">sdk_pref</string>
+    <string name="meeting_url">meeting_url</string>
+    <string name="access_token">access_token</string>
+    <string name="group_Id">group_Id</string>
+    <string name="show_staging_call_screen">Show staging call screen</string>
+    <string name="customize_call_screen">Customize call screen</string>
+    <string name="save">Save</string>
+    <string name="switch_off">Off</string>
+    <string name="switch_on">On</string>
+    <string name="sdk_not_initialized">SDK not initialized</string>
+    <string name="meeting_url_str">Meeting Url</string>
+    <string name="acs_token_str">ACS token</string>
+    <string name="group_id_str">Group ID</string>
+    <string name="save_success">Save success</string>
+    <string name="customizeScreen_enabled">customizeScreen_enabled</string>
+    <string name="stagingScreen_enabled">stagingScreen_enabled</string>
 </resources>
