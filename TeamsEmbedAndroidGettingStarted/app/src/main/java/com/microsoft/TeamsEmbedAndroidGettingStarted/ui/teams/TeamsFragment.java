@@ -31,7 +31,6 @@ import com.azure.android.communication.ui.meetings.MeetingUIClientTeamsMeetingLi
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomEventListener;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomIdentityProvider;
-import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomScreenProvider;
 import com.microsoft.skype.teams.util.SystemUtil;
 
 import java.util.HashMap;
@@ -154,8 +153,7 @@ public class TeamsFragment extends Fragment {
             final String meetingUrl = (meetingLink!= null && meetingLink.isEmpty()) ? "<MEETING_URL>" : meetingLink;
             final String displayName = "John Smith";
 
-            CustomScreenProvider customScreenProvider = new CustomScreenProvider(getContext(), this);
-            CustomEventListener customEventListener = new CustomEventListener(customScreenProvider, this);
+            CustomEventListener customEventListener = new CustomEventListener(this);
 
             MeetingUIClientTeamsMeetingLinkLocator meetingUIClientTeamsMeetingLinkLocator = new MeetingUIClientTeamsMeetingLinkLocator(meetingUrl);
             MeetingUIClientJoinOptions meetingJoinOptions = new MeetingUIClientJoinOptions(displayName, false);
@@ -212,15 +210,7 @@ public class TeamsFragment extends Fragment {
             MeetingUIClientJoinOptions meetingJoinOptions = new MeetingUIClientJoinOptions(displayName, showStagingScreen);
             MeetingUIClientGroupCallLocator meetingUIClientGroupCallLocator = new MeetingUIClientGroupCallLocator(groupUUID);
 
-            final boolean customizeCallScreen = mPrefs.getBoolean(getString(R.string.customizeScreen_enabled), false);
-            CustomScreenProvider customScreenProvider = null;
-            if (customizeCallScreen) {
-                customScreenProvider = new CustomScreenProvider(getContext(), this);
-                meetingUIClient.setMeetingUIClientInCallScreenProvider(customScreenProvider);
-                meetingUIClient.setMeetingUIClientConnectingScreenProvider(customScreenProvider);
-                meetingUIClient.setMeetingUIClientStagingScreenProvider(customScreenProvider);
-            }
-            CustomEventListener customEventListener = new CustomEventListener(customScreenProvider, this);
+            CustomEventListener customEventListener = new CustomEventListener(this);
 
             meetingUIClientCall = meetingUIClient.join(meetingUIClientGroupCallLocator, meetingJoinOptions);
 

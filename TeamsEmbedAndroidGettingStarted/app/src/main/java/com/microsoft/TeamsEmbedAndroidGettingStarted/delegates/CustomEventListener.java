@@ -5,12 +5,9 @@
 package com.microsoft.TeamsEmbedAndroidGettingStarted.delegates;
 
 import android.app.Activity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.azure.android.communication.common.CommunicationIdentifier;
 import com.azure.android.communication.ui.meetings.MeetingUIClientCallEventListener;
@@ -18,19 +15,17 @@ import com.azure.android.communication.ui.meetings.MeetingUIClientCallState;
 import com.azure.android.communication.ui.meetings.MeetingUIClientCallUserEventListener;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.ui.teams.TeamsFragment;
-import com.microsoft.teamssdk.calling.MicrosoftTeamsSDK;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class CustomEventListener implements MeetingUIClientCallEventListener, MeetingUIClientCallUserEventListener {
 
-    @Nullable
-    private final CustomScreenProvider mCustomScreenProvider;
     private final WeakReference<TeamsFragment> teamsFragmentWeakReference;
 
-    public CustomEventListener(@Nullable CustomScreenProvider customScreenProvider, @NonNull TeamsFragment teamsFragment) {
-        mCustomScreenProvider = customScreenProvider;
+    public CustomEventListener(@NonNull TeamsFragment teamsFragment) {
         teamsFragmentWeakReference = new WeakReference<>(teamsFragment);
     }
 
@@ -63,30 +58,17 @@ public class CustomEventListener implements MeetingUIClientCallEventListener, Me
 
     @Override
     public void onIsMutedChanged() {
-        if (mCustomScreenProvider == null) return;
-        View callControlsView = mCustomScreenProvider.getCallControlsView();
-        if (callControlsView == null) return;
-        Button mCallControlMicButtonView = callControlsView.findViewById(R.id.call_placeholder_button_2);
-        if(mCallControlMicButtonView != null) {
-            mCallControlMicButtonView.setText(MicrosoftTeamsSDK.isMuted() ? R.string.mic_off : R.string.mic_on);
-        }
+        System.out.println("onIsMutedChanged");
     }
 
     @Override
     public void onIsSendingVideoChanged() {
-        if (mCustomScreenProvider == null) return;
-        View callControlsView = mCustomScreenProvider.getCallControlsView();
-        if (callControlsView == null) return;
-        Button mCallControlVideoButtonView = callControlsView.findViewById(R.id.call_placeholder_button_1);
-        if(mCallControlVideoButtonView != null) {
-            mCallControlVideoButtonView.setText(MicrosoftTeamsSDK.isSendingVideo() ? R.string.video_on : R.string.video_off);
-        }
+        System.out.println("onIsSendingVideoChanged");
     }
 
     @Override
     public void onIsHandRaisedChanged(List<String> participantIds) {
-        if (mCustomScreenProvider == null) return;
-        mCustomScreenProvider.setHandRaisedParticipants(participantIds);
+        System.out.println("onIsHandRaisedChanged");
     }
 
     @Override
@@ -97,6 +79,12 @@ public class CustomEventListener implements MeetingUIClientCallEventListener, Me
     @Override
     public boolean onParticipantViewLongPressed(@NonNull Activity activity, @NonNull CommunicationIdentifier communicationIdentifier) {
         Toast.makeText(activity, "Participant view long pressed", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean onParticipantClickedInRoster(@NonNull @NotNull Activity activity, @NonNull @NotNull CommunicationIdentifier communicationIdentifier) {
+        Toast.makeText(activity, "Participant clicked in roster", Toast.LENGTH_SHORT).show();
         return true;
     }
 }

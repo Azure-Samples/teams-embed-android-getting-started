@@ -48,16 +48,8 @@ public class SettingsFragment extends Fragment {
 
         SwitchCompat switchStagingScreen = (SwitchCompat) root.findViewById(R.id.switch_staging_screen);
         switchStagingScreen.setOnCheckedChangeListener((view, isChecked) -> onSwitchStagingScreen(isChecked));
-        
-        SwitchCompat switchCustomizeScreen = (SwitchCompat) root.findViewById(R.id.switch_customize_screen);
-        switchCustomizeScreen.setOnCheckedChangeListener((view, isChecked) -> onSwitchCustomizeScreen(isChecked));
 
         return root;
-    }
-
-    private void onSwitchCustomizeScreen(boolean isChecked) {
-        mPrefsEditor.putBoolean(getString(R.string.customizeScreen_enabled), isChecked);
-        mPrefsEditor.apply();
     }
 
     private void onSwitchStagingScreen(boolean isChecked) {
