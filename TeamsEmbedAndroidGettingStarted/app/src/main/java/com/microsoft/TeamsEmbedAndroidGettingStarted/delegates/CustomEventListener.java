@@ -81,10 +81,4 @@ public class CustomEventListener implements MeetingUIClientCallEventListener, Me
         Toast.makeText(activity, "Participant view long pressed", Toast.LENGTH_SHORT).show();
         return true;
     }
-
-    @Override
-    public boolean onParticipantClickedInRoster(@NonNull @NotNull Activity activity, @NonNull @NotNull CommunicationIdentifier communicationIdentifier) {
-        Toast.makeText(activity, "Participant clicked in roster", Toast.LENGTH_SHORT).show();
-        return true;
-    }
 }

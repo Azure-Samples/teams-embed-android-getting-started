@@ -29,6 +29,7 @@ import com.azure.android.communication.ui.meetings.MeetingUIClientIconType;
 import com.azure.android.communication.ui.meetings.MeetingUIClientJoinOptions;
 import com.azure.android.communication.ui.meetings.MeetingUIClientTeamsMeetingLinkLocator;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
+import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomCallRosterDelegate;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomEventListener;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.delegates.CustomIdentityProvider;
 import com.microsoft.skype.teams.util.SystemUtil;
@@ -162,6 +163,7 @@ public class TeamsFragment extends Fragment {
             meetingUIClientCall.setMeetingUIClientCallEventListener(customEventListener);
             meetingUIClientCall.setMeetingUIClientCallIdentityProvider(new CustomIdentityProvider(getContext()));
             meetingUIClientCall.setMeetingUIClientCallUserEventListener(customEventListener);
+            meetingUIClientCall.setMeetingUIClientCallRosterDelegate(new CustomCallRosterDelegate());
 
             updateStatusLabel(R.string.sdk_call_connecting);
         } catch (Exception ex) {
@@ -217,6 +219,7 @@ public class TeamsFragment extends Fragment {
             meetingUIClientCall.setMeetingUIClientCallEventListener(customEventListener);
             meetingUIClientCall.setMeetingUIClientCallIdentityProvider(new CustomIdentityProvider(getContext()));
             meetingUIClientCall.setMeetingUIClientCallUserEventListener(customEventListener);
+            meetingUIClientCall.setMeetingUIClientCallRosterDelegate(new CustomCallRosterDelegate());
 
             updateStatusLabel(R.string.sdk_call_connecting);
         } catch (Exception ex) {
@@ -240,7 +243,6 @@ public class TeamsFragment extends Fragment {
         iconConfig.put(MeetingUIClientIconType.VIDEO_ON, R.drawable.video_camera);
         iconConfig.put(MeetingUIClientIconType.MIC_ON, R.drawable.microphone_fill);
         iconConfig.put(MeetingUIClientIconType.MIC_OFF, R.drawable.microphone_off);
-        iconConfig.put(MeetingUIClientIconType.SPEAKER, R.drawable.volume_high);
         return iconConfig;
     }
 
