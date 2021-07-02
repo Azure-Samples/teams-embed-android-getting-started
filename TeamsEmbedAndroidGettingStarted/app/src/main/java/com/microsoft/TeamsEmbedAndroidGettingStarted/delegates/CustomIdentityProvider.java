@@ -14,7 +14,6 @@ import com.azure.android.communication.common.CommunicationUserIdentifier;
 import com.azure.android.communication.ui.meetings.MeetingUIClientAvatarSize;
 import com.azure.android.communication.ui.meetings.MeetingUIClientCallIdentityProvider;
 import com.azure.android.communication.ui.meetings.MeetingUIClientCallIdentityProviderCallback;
-import com.azure.android.communication.ui.meetings.MeetingUIClientUserRole;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
 
 public class CustomIdentityProvider implements MeetingUIClientCallIdentityProvider {
@@ -63,17 +62,6 @@ public class CustomIdentityProvider implements MeetingUIClientCallIdentityProvid
             System.out.println("MeetingUIClientIdentityProvider.provideSubTitleFor called for userIdentifier: " + userIdentifier.getId());
             if (isACSUser(userIdentifier.getId())) {
                 meetingUIClientCallIdentityProviderCallback.onSubTitleAvailable("ACS Subtitle");
-            }
-        }
-    }
-
-    @Override
-    public void provideRoleFor(CommunicationIdentifier communicationIdentifier, MeetingUIClientCallIdentityProviderCallback meetingUIClientCallIdentityProviderCallback) {
-        if(communicationIdentifier instanceof CommunicationUserIdentifier) {
-            CommunicationUserIdentifier userIdentifier = (CommunicationUserIdentifier) communicationIdentifier;
-            System.out.println("MeetingUIClientIdentityProvider.provideRoleFor called for userIdentifier: " + userIdentifier.getId());
-            if (isACSUser(userIdentifier.getId())) {
-                meetingUIClientCallIdentityProviderCallback.onRoleAvailable(MeetingUIClientUserRole.UserRoleAttendee);
             }
         }
     }

@@ -26,6 +26,7 @@ public class SettingsFragment extends Fragment {
     private EditText meetingUrl;
     private EditText acsToken;
     private EditText groupId;
+    SwitchCompat switchStagingScreen;
     private SharedPreferences.Editor mPrefsEditor;
     public static final int TAB_POSITION = 2;
 
@@ -46,18 +47,10 @@ public class SettingsFragment extends Fragment {
         acsToken = root.findViewById(R.id.acs_token);
         groupId = root.findViewById(R.id.group_id);
 
-        SwitchCompat switchStagingScreen = (SwitchCompat) root.findViewById(R.id.switch_staging_screen);
+        switchStagingScreen = (SwitchCompat) root.findViewById(R.id.switch_staging_screen);
         switchStagingScreen.setOnCheckedChangeListener((view, isChecked) -> onSwitchStagingScreen(isChecked));
-        
-        SwitchCompat switchCustomizeScreen = (SwitchCompat) root.findViewById(R.id.switch_customize_screen);
-        switchCustomizeScreen.setOnCheckedChangeListener((view, isChecked) -> onSwitchCustomizeScreen(isChecked));
 
         return root;
-    }
-
-    private void onSwitchCustomizeScreen(boolean isChecked) {
-        mPrefsEditor.putBoolean(getString(R.string.customizeScreen_enabled), isChecked);
-        mPrefsEditor.apply();
     }
 
     private void onSwitchStagingScreen(boolean isChecked) {
@@ -69,16 +62,11 @@ public class SettingsFragment extends Fragment {
         String meetingUrlStr = meetingUrl.getText().toString();
         String acsTokenStr = acsToken.getText().toString();
         String groupIdStr = groupId.getText().toString();
-        if(!meetingUrlStr.isEmpty())
-        {
-            mPrefsEditor.putString(getString(R.string.meeting_url), meetingUrlStr);
-        }
-        if(!acsTokenStr.isEmpty()) {
-            mPrefsEditor.putString(getString(R.string.access_token), acsTokenStr);
-            if(!groupIdStr.isEmpty()) {
-                mPrefsEditor.putString(getString(R.string.group_Id), groupIdStr);
-            }
-        }
+        mPrefsEditor.clear();
+        mPrefsEditor.putString(getString(R.string.meeting_url), meetingUrlStr);
+        mPrefsEditor.putString(getString(R.string.access_token), acsTokenStr);
+        mPrefsEditor.putString(getString(R.string.group_Id), groupIdStr);
+        mPrefsEditor.putBoolean(getString(R.string.stagingScreen_enabled), switchStagingScreen.isChecked());
         mPrefsEditor.apply();
         SystemUtil.showToast(this.getActivity(), getString(R.string.save_success));
     }

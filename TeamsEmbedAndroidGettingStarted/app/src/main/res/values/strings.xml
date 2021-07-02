@@ -57,6 +57,5 @@
     <string name="acs_token_str">ACS token</string>
     <string name="group_id_str">Group ID</string>
     <string name="save_success">Save success</string>
-    <string name="customizeScreen_enabled">customizeScreen_enabled</string>
     <string name="stagingScreen_enabled">stagingScreen_enabled</string>
 </resources>

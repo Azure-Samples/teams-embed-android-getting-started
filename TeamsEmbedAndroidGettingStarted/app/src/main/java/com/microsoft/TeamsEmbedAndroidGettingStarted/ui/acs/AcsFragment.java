@@ -24,12 +24,12 @@ import com.azure.android.communication.calling.Call;
 import com.azure.android.communication.calling.CallAgent;
 import com.azure.android.communication.calling.CallClient;
 import com.azure.android.communication.calling.CallState;
-import com.azure.android.communication.calling.GroupCallLocator;
-import com.azure.android.communication.calling.JoinCallOptions;
+import com.azure.android.communication.calling.StartCallOptions;
 import com.azure.android.communication.common.CommunicationTokenCredential;
+import com.azure.android.communication.common.CommunicationUserIdentifier;
 import com.microsoft.TeamsEmbedAndroidGettingStarted.R;
 
-import java.util.UUID;
+import java.util.Arrays;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.microsoft.skype.teams.util.PermissionUtil.ANDROID_PERMISSION_RECORD_AUDIO;
@@ -128,10 +128,14 @@ public class AcsFragment extends Fragment {
 
     private void joinAcsCall() {
         try {
-            createAgent();
-            mPrefs.edit().putBoolean("isACSInitialized", true).apply();
-            startAcsCall();
-
+            CommunicationTokenCredential credential = createCommunicationTokenCredential();
+            if (mCallClient == null && credential != null) {
+                mCallClient = new CallClient();
+                callAgent = mCallClient.createCallAgent(getContext(), credential).get();
+                updateStatusLabel(R.string.acs_call_agent_success);
+                mPrefs.edit().putBoolean("isACSInitialized", true).apply();
+                startAcsCall();
+            }
         } catch (Exception ex){
             updateStatusLabel(R.string.acs_call_agent_failed);
             Toast.makeText(getContext(), "Failed to create call agent: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -151,31 +155,14 @@ public class AcsFragment extends Fragment {
         return credential;
     }
 
-    /**
-     * Create the call agent for placing calls
-     */
-    private void createAgent() {
-        try {
-            CommunicationTokenCredential credential = createCommunicationTokenCredential();
-            synchronized (this) {
-                if (mCallClient == null) {
-                    mCallClient = new CallClient();
-                    callAgent = mCallClient.createCallAgent(this.getActivity().getApplicationContext(), credential).get();
-                }
-            }
-            updateStatusLabel(R.string.acs_call_agent_success);
-        } catch (Exception ex) {
-            Toast.makeText(this.getActivity().getApplicationContext(), "Failed to create call agent.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void startAcsCall() {
-        final String groupIdStr = mPrefs.getString(getString(R.string.group_Id), "");
-        final String groupId = (groupIdStr != null && groupIdStr.isEmpty()) ? "<GROUP_ID>" : groupIdStr;
-        GroupCallLocator groupCallLocator = new GroupCallLocator(UUID.fromString(groupId));
-        JoinCallOptions joinCallOptions = new JoinCallOptions();
         try {
-            mCall = callAgent.join(getContext(), groupCallLocator, joinCallOptions);
+            String calleeId = "8:echo123";
+            CommunicationUserIdentifier[] callees = new CommunicationUserIdentifier[]{new CommunicationUserIdentifier(calleeId)};
+            StartCallOptions options = new StartCallOptions();
+            mCall = callAgent.startCall(this.getActivity().getApplicationContext(),
+                    Arrays.asList(callees),
+                    options);
             updateStatusLabel(R.string.acs_call_success);
             mCall.addOnStateChangedListener(p -> handleCallOnStateChanged(mCall.getState()));
         } catch (Exception e) {
